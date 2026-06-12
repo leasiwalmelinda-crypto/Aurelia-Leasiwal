@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aurelia Melinda Leasiwal</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal-deep:   #2C3E55;
+      --teal-mid:    #4A6680;
+      --teal-light:  #7A9BB5;
+      --coral:       #C4A882;
+      --sand:        #EEF2F6;
+      --cream:       #F8F9FB;
+      --text-dark:   #1E2D3D;
+      --text-mid:    #4A6275;
+      --text-light:  #8AAABF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, var(--teal-deep) 0%, var(--teal-mid) 55%, var(--teal-light) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* animated bokeh circles */
+    .hero::before, .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      opacity: .12;
+      animation: drift 12s ease-in-out infinite alternate;
+    }
+    .hero::before {
+      width: 420px; height: 420px;
+      background: var(--teal-light);
+      top: -80px; right: -100px;
+    }
+    .hero::after {
+      width: 300px; height: 300px;
+      background: var(--coral);
+      bottom: 60px; left: -80px;
+      animation-delay: -5s;
+    }
+    @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(30px, 20px) scale(1.1); } }
+
+    .hero-avatar-wrap {
+      position: relative;
+      margin-bottom: 1.8rem;
+      z-index: 1;
+    }
+    .hero-avatar-ring {
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      border: 3px solid var(--coral);
+      padding: 5px;
+      display: flex; align-items: center; justify-content: center;
+      animation: pulse-ring 3s ease-in-out infinite;
+    }
+    @keyframes pulse-ring {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(196,168,130,.4); }
+      50%       { box-shadow: 0 0 0 14px rgba(196,168,130,0); }
+    }
+    .hero-avatar-ring img {
+      width: 126px; height: 126px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+    .avatar-placeholder {
+      width: 126px; height: 126px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2C3E55, #7A9BB5);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 2px;
+    }
+
+    .hero-eyebrow {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: .6rem;
+      z-index: 1;
+    }
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.1;
+      z-index: 1;
+      animation: fade-up .9s ease both;
+    }
+    .hero-name span { color: var(--coral); }
+
+    .hero-tagline {
+      margin-top: .8rem;
+      font-size: clamp(.9rem, 2.2vw, 1.05rem);
+      font-weight: 300;
+      color: rgba(255,255,255,.72);
+      max-width: 440px;
+      z-index: 1;
+      animation: fade-up 1.1s ease both;
+    }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .4rem;
+      z-index: 1;
+      color: rgba(255,255,255,.45);
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,.5), transparent);
+      animation: scroll-drop 2s ease-in-out infinite;
+    }
+    @keyframes scroll-drop {
+      0%, 100% { transform: scaleY(1); opacity: .6; }
+      50%       { transform: scaleY(.6); opacity: .2; }
+    }
+
+    /* ── WAVE DIVIDER ── */
+    .wave {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+    }
+    .wave svg { display: block; width: 100%; }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 4.5rem 1.5rem;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: .5rem;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      font-weight: 700;
+      color: var(--teal-deep);
+      margin-bottom: 1.8rem;
+      position: relative;
+      display: inline-block;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -6px;
+      width: 40px; height: 3px;
+      background: var(--coral);
+      border-radius: 2px;
+    }
+
+    /* ── INFO GRID ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .info-card {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: 14px;
+      padding: 1.3rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .info-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(13,59,71,.1);
+    }
+    .info-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .info-label {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: .25rem;
+    }
+    .info-value {
+      font-size: .92rem;
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+
+    /* ── EDUCATION TIMELINE ── */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--coral), var(--teal-light));
+      border-radius: 2px;
+    }
+    .tl-item {
+      position: relative;
+      margin-bottom: 1.6rem;
+    }
+    .tl-item:last-child { margin-bottom: 0; }
+    .tl-dot {
+      position: absolute;
+      left: -2rem;
+      top: 4px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--coral);
+      border: 3px solid var(--cream);
+      box-shadow: 0 0 0 2px var(--coral);
+    }
+    .tl-level {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: .2rem;
+    }
+    .tl-school {
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--teal-deep);
+    }
+
+    /* ── HOBBIES ── */
+    .hobby-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .8rem;
+    }
+    .hobby-chip {
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .6rem 1.2rem;
+      background: var(--sand);
+      border-radius: 999px;
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--teal-deep);
+      transition: background .2s ease, transform .2s ease;
+    }
+    .hobby-chip:hover {
+      background: var(--teal-deep);
+      color: #fff;
+      transform: scale(1.05);
+    }
+    .hobby-chip span { font-size: 1.2rem; }
+
+    /* ── CONTACT ── */
+    .contact-band {
+      background: linear-gradient(135deg, var(--teal-deep), var(--teal-mid));
+      color: #fff;
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
+    .contact-band .section-label { color: var(--coral); }
+    .contact-band .section-title { color: #fff; display: block; }
+    .contact-band .section-title::after { background: rgba(255,255,255,.3); }
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.8rem;
+    }
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .75rem 1.6rem;
+      border-radius: 999px;
+      font-size: .88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all .2s ease;
+    }
+    .contact-btn.coral {
+      background: var(--coral);
+      color: #fff;
+    }
+    .contact-btn.coral:hover { background: #cf4f3c; transform: translateY(-2px); }
+    .contact-btn.outline {
+      background: transparent;
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,.4);
+    }
+    .contact-btn.outline:hover { background: rgba(255,255,255,.1); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 1.4rem;
+      font-size: .75rem;
+      color: var(--text-light);
+      background: var(--cream);
+    }
+
+    /* ── ABOUT ABOUT SECTION ── */
+    .about-text {
+      font-size: 1.02rem;
+      line-height: 1.8;
+      color: var(--text-mid);
+      max-width: 640px;
+    }
+    .about-text strong { color: var(--teal-deep); font-weight: 600; }
+
+    /* ── BG ALTERNATING ── */
+    .bg-alt { background: var(--sand); }
+
+    @media (max-width: 480px) {
+      .info-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-avatar-wrap">
+    <div class="hero-avatar-ring">
+      <div class="avatar-placeholder">AM</div>
+    </div>
+  </div>
+  <p class="hero-eyebrow">Biodata Pribadi</p>
+  <h1 class="hero-name">Aurelia Melinda<br><span>Leasiwal</span></h1>
+  <p class="hero-tagline">Mahasiswa Ilmu Komputer · Universitas Pattimura Ambon</p>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    scroll
+  </div>
+</section>
+
+<!-- wave top -->
+<div class="wave">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C360,70 1080,-10 1440,30 L1440,0 L0,0 Z" fill="#4A6680"/>
+    <path d="M0,40 C400,80 1000,0 1440,40 L1440,0 L0,0 Z" fill="#F2E8D9" opacity=".0"/>
+  </svg>
+</div>
+
+<!-- ══ TENTANG SAYA ══ -->
+<div style="background:var(--cream)">
+  <div class="section">
+    <p class="section-label">Tentang Saya</p>
+    <h2 class="section-title">Siapa Saya?</h2>
+    <p class="about-text">
+      Saya adalah <strong>Aurelia Melinda Leasiwal</strong>, mahasiswa aktif di
+      <strong>Universitas Pattimura</strong>, Fakultas Sains dan Teknologi,
+      Jurusan Matematika, Program Studi <strong>Ilmu Komputer</strong>.
+      Saya berusia 19 tahun dan tinggal di Ambon, Maluku. Di luar akademik,
+      saya menikmati memasak dan bermain badminton.
+    </p>
+  </div>
+</div>
+
+<!-- wave divider -->
+<div class="wave">
+  <svg viewBox="0 0 1440 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,25 C480,55 960,-5 1440,25 L1440,50 L0,50 Z" fill="#F2E8D9"/>
+  </svg>
+</div>
+
+<!-- ══ DATA DIRI ══ -->
+<div class="bg-alt">
+  <div class="section">
+    <p class="section-label">Informasi Pribadi</p>
+    <h2 class="section-title">Data Diri</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon">👤</div>
+        <div>
+          <div class="info-label">Nama Lengkap</div>
+          <div class="info-value">Aurelia Melinda Leasiwal</div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🎂</div>
+        <div>
+          <div class="info-label">Umur</div>
+          <div class="info-value">19 Tahun</div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🎓</div>
+        <div>
+          <div class="info-label">Status</div>
+          <div class="info-value">Mahasiswa Aktif</div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">📍</div>
+        <div>
+          <div class="info-label">Alamat</div>
+          <div class="info-value">Jl Kapten Pierre Tendean</div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">✉️</div>
+        <div>
+          <div class="info-label">Email</div>
+          <div class="info-value">leasiwalmelinda@gmail.com</div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🏛️</div>
+        <div>
+          <div class="info-label">Universitas</div>
+          <div class="info-value">Universitas Pattimura</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- wave divider -->
+<div class="wave" style="background:var(--sand)">
+  <svg viewBox="0 0 1440 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,20 C360,55 1080,-10 1440,20 L1440,50 L0,50 Z" fill="var(--cream)"/>
+  </svg>
+</div>
+
+<!-- ══ PENDIDIKAN ══ -->
+<div style="background:var(--cream)">
+  <div class="section">
+    <p class="section-label">Riwayat Belajar</p>
+    <h2 class="section-title">Pendidikan</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-level">Sekolah Dasar</div>
+        <div class="tl-school">SD Negeri 1 Galala</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-level">Sekolah Menengah Pertama</div>
+        <div class="tl-school">SMP Negeri 3 Ambon</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-level">Sekolah Menengah Atas</div>
+        <div class="tl-school">SMA 4 Ambon</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--teal-mid);box-shadow:0 0 0 2px var(--teal-mid)"></div>
+        <div class="tl-level">Perguruan Tinggi · Sedang Berjalan</div>
+        <div class="tl-school">Universitas Pattimura — Ilmu Komputer</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- wave divider -->
+<div class="wave">
+  <svg viewBox="0 0 1440 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C480,60 960,0 1440,30 L1440,50 L0,50 Z" fill="var(--sand)"/>
+  </svg>
+</div>
+
+<!-- ══ HOBI ══ -->
+<div class="bg-alt">
+  <div class="section">
+    <p class="section-label">Waktu Luang</p>
+    <h2 class="section-title">Hobi</h2>
+    <div class="hobby-row">
+      <div class="hobby-chip"><span>🍳</span> Memasak</div>
+      <div class="hobby-chip"><span>🏸</span> Badminton</div>
+    </div>
+  </div>
+</div>
+
+<!-- wave into contact -->
+<div class="wave" style="background:var(--sand)">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,20 C360,60 1080,0 1440,20 L1440,60 L0,60 Z" fill="var(--teal-deep)"/>
+  </svg>
+</div>
+
+<!-- ══ KONTAK ══ -->
+<div class="contact-band">
+  <p class="section-label">Hubungi Saya</p>
+  <h2 class="section-title">Kontak</h2>
+  <div class="contact-links">
+    <a href="mailto:leasiwalmelinda@gmail.com" class="contact-btn coral">
+      ✉️ leasiwalmelinda@gmail.com
+    </a>
+    <a href="https://instagram.com/aurelia.leasiwal_" target="_blank" class="contact-btn outline">
+      📸 @aurelia.leasiwal_
+    </a>
+  </div>
+</div>
+
+<footer>
+  © 2026 Aurelia Melinda Leasiwal · Ambon, Maluku
+</footer>
+
+</body>
+</html>
